@@ -10,12 +10,15 @@ function PaletaLista() {
           setPaletaSelecionada({ ...paletaSelecionada, ...paleta});
   }
 
+  const badgeCounter = (canRender, index) =>
+	Boolean(canRender) && (<span className="PaletaListaItem__badge"> {paletaSelecionada[index]} </span>);
+
   return (
     <div className="PaletaLista">
       {paletas.map((paleta, index) => (
       <div className="PaletaListaItem" key={`PaletaListaItem-${index}`}>
       <div>
-      <span className="PaletaListaItem__badge"> {paletaSelecionada[index] || 0} </span>
+      {badgeCounter(paletaSelecionada[index], index)}
           <div className="PaletaListaItem__titulo">
             {paleta.titulo}
           </div>

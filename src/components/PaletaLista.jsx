@@ -8,10 +8,18 @@ function PaletaLista() {
   const adicionarItem = (paletaIndex) => {
           const paleta = { [paletaIndex]: Number(paletaSelecionada[paletaIndex] || 0) +1 }
           setPaletaSelecionada({ ...paletaSelecionada, ...paleta});
-  }
+  };
 
   const badgeCounter = (canRender, index) =>
 	Boolean(canRender) && (<span className="PaletaListaItem__badge"> {paletaSelecionada[index]} </span>);
+
+  const removerItem = (paletaIndex) => {
+    const paleta = { [paletaIndex]: Number(paletaSelecionada[paletaIndex] || 0) -1 }
+    setPaletaSelecionada({...paletaSelecionada, ...paleta});
+};
+
+const removeButton = (canRender, index) =>
+	Boolean(canRender) && (<button className="Acoes__remover" onClick={() => removerItem(index)}>remover</button>);
 
   return (
     <div className="PaletaLista">
@@ -27,7 +35,8 @@ function PaletaLista() {
             {paleta.descricao}
           </div>
           <div className="PaletaListaItem__acoes Acoes">
-          <button className="Acoes__adicionar Acoes__adicionar--preencher" onClick={() => adicionarItem(index)}>adicionar</button>
+          <button className={`Acoes__adicionar ${!paletaSelecionada[index] && "Acoes__adicionar--preencher"}`} onClick={() => adicionarItem(index)}>adicionar</button>
+          {removeButton(paletaSelecionada[index], index)}
           </div>
         </div>
         <img
